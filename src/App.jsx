@@ -1,9 +1,11 @@
+import MainContent from "./components/structure/MainContent/MainContent";
+
 function App() {
   return (
     <>
-      <div className="header-container">
-        <h1 className="header">Hello World</h1>
-      </div>
+      <main className="page-container">
+        <MainContent />
+      </main>
     </>
   );
 }
