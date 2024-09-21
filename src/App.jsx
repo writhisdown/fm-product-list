@@ -1,13 +1,11 @@
 import MainContent from "./components/structure/MainContent/MainContent";
 
-function App() {
+export default function App() {
   return (
     <>
       <main className="page-container">
-        <MainContent />
+        <MainContent title='Desserts' />
       </main>
     </>
   );
 }
-
-export default App;

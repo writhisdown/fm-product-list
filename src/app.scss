@@ -40,11 +40,11 @@
   --clr-green: hsl(159deg, 69%, 38%);
   --clr-black: hsl(0deg, 0, 0);
   --clr-white: hsl(0deg, 0, 100%);
-  --text-lrg-700: 700 3.5rem/1.2rem "Red Hat Text", system-ui, sans-serif;
-  --text-md-700: 700 1.5rem/1.25rem "Red Hat Text", system-ui, sans-serif;
-  --text-body: 500 1rem/1.5rem "Red Hat Text", system-ui, sans-serif;
-  --text-sm-500: 500 0.875rem/1.5rem "Red Hat Text", system-ui, sans-serif;
-  --text-sm-400: 400 0.875rem/1.5rem "Red Hat Text", system-ui, sans-serif;
+  --text-lrg-700: 700 3.5rem/120% "Red Hat Text", system-ui, sans-serif;
+  --text-md-700: 700 1.5rem/125% "Red Hat Text", system-ui, sans-serif;
+  --text-body: 500 1rem/150% "Red Hat Text", system-ui, sans-serif;
+  --text-sm-500: 500 0.875rem/150% "Red Hat Text", system-ui, sans-serif;
+  --text-sm-400: 400 0.875rem/150% "Red Hat Text", system-ui, sans-serif;
   --spacing-50: 4px;
   --spacing-100: 8px;
   --spacing-150: 12px;
@@ -53,6 +53,7 @@
   --spacing-400: 32px;
   --spacing-500: 40px;
   --spacing-1100: 88px;
+  --spacing-max-content: 1216px;
 }
 
 *,
@@ -122,5 +123,6 @@ body {
 .page-container {
   width: 100%;
   height: 100dvh;
-  padding: 1rem;
+  padding-inline: 1rem;
+  padding-bottom: 1rem;
 }
