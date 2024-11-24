@@ -1,4 +1,5 @@
-import ProductGrid from "../ProductGrid/ProductGrid";
+import ProductShelf from "../ProductGrid/ProductShelf";
+import ProductGrid from "../ProductGrid/ProductShelf";
 import styles from "./styles.module.scss";
 
 export default function MainContent({title}) {
@@ -8,7 +9,7 @@ export default function MainContent({title}) {
       <section className={styles.content}>
         <div>
           <h1 className={styles.content__title}>{title}</h1>
-          <ProductGrid />
+          <ProductShelf />
         </div>
       </section>
     </>

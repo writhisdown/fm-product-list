@@ -1,0 +1,29 @@
+@import "../../utilities/styles/breakpoints.scss";
+
+.product-card__image {
+  border-radius: 8px;
+  height: 212px;
+  width: auto;
+
+  @include screen-lg {
+    height: 240px;
+  }
+}
+
+.product-card__category {
+  font: var(--text-sm-400);
+  color: var(--clr-rose-500);
+}
+
+.product-card__title,
+.product-card__price {
+  font: var(--text-body);
+}
+
+.product-card__title {
+  color: var(--clr-rose-900);
+}
+
+.product-card__price {
+  color: var(--clr-red);
+}
