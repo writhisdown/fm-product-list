@@ -1,5 +1,4 @@
-import ProductShelf from "../ProductGrid/ProductShelf";
-import ProductGrid from "../ProductGrid/ProductShelf";
+import ProductShelf from "../ProductShelf/ProductShelf";
 import styles from "./styles.module.scss";
 
 export default function MainContent({title}) {
