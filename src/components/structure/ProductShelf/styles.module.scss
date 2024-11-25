@@ -1,5 +1,16 @@
+@import "../../../utilities/styles/breakpoints.scss";
+
 .product-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: var(--spacing-400);
+
+  @include screen-sm {
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-400) var(--spacing-300);
+  }
+
+  @include screen-md {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }

@@ -1,15 +1,32 @@
 import styles from "./styles.module.scss";
+import FallbackIcon from "../Icons/FallbackIcon";
+import CartIcon from "../Icons/CartIcon";
+import AddToCartButton from "../Buttons/AddToCartButton";
 
 export default function ProductCard(props) {
   return (
     <>
       <article className={styles["product-card"]}>
         <div className={styles["product-card__header"]}>
-          <picture className={styles["product-card__image"]}>
-            <source srcSet={props.mediumUrl} media="(min-width: 768px)" />
-            <source srcSet={props.largeUrl} media="(min-width: 999px)" />
-            <img src={props.defaultUrl} alt={props.title} />
-          </picture>
+          {props.largeUrl || props.mediumUrl || props.defaultUrl ? (
+            <picture>
+              <source srcSet={props.mediumUrl} media="(min-width: 768px)" />
+              <source srcSet={props.largeUrl} media="(min-width: 999px)" />
+              <img
+                src={props.defaultUrl}
+                alt={props.title}
+                className={styles["product-card__image"]}
+              />
+            </picture>
+          ) : (
+            <div className={styles["fallback-image"]}>
+              <FallbackIcon />
+            </div>
+          )}
+          <AddToCartButton>
+            <CartIcon />
+            <span>Add to Cart</span>
+          </AddToCartButton>
         </div>
         <div className={styles["product-card__info"]}>
           <span className={styles["product-card__category"]}>

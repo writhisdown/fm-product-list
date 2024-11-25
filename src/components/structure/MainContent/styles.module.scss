@@ -1,11 +1,17 @@
+@import "../../../utilities/styles/breakpoints.scss";
+
 .content {
   max-width: var(--spacing-max-content);
   width: 100%;
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: 0 var(--spacing-400);
   margin-inline: auto;
   margin-top: var(--spacing-1100);
+
+  @include screen-md {
+    -moz-column-gap: var(--spacing-400);
+         column-gap: var(--spacing-400);
+  }
 
   &__title {
     font: var(--text-lrg-700);
