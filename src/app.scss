@@ -126,3 +126,15 @@ body {
   padding-inline: 1rem;
   padding-bottom: 3rem;
 }
+
+// visually hide element for screen reader navigation only
+.screen-reader-text {
+  clip: rect(0 0 0 0);
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}

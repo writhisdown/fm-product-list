@@ -1,4 +1,5 @@
 import ProductShelf from "../ProductShelf/ProductShelf";
+import Cart from "../Cart/Cart";
 import styles from "./styles.module.scss";
 
 export default function MainContent({title}) {
@@ -10,6 +11,7 @@ export default function MainContent({title}) {
           <h1 className={styles.content__title}>{title}</h1>
           <ProductShelf />
         </div>
+        <Cart />
       </section>
     </>
   );

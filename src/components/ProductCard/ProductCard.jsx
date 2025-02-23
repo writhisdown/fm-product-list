@@ -1,7 +1,6 @@
 import styles from "./styles.module.scss";
 import FallbackIcon from "../Icons/FallbackIcon";
-import CartIcon from "../Icons/CartIcon";
-import AddToCartButton from "../Buttons/AddToCartButton";
+import AddToCartButton from "../Buttons/AddToCart/AddToCartButton";
 
 export default function ProductCard(props) {
   return (
@@ -23,10 +22,9 @@ export default function ProductCard(props) {
               <FallbackIcon />
             </div>
           )}
-          <AddToCartButton>
-            <CartIcon />
-            <span>Add to Cart</span>
-          </AddToCartButton>
+          <div className={styles["product-card__actions"]}>
+            <AddToCartButton />
+          </div>
         </div>
         <div className={styles["product-card__info"]}>
           <span className={styles["product-card__category"]}>
