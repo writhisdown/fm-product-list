@@ -1,8 +1,37 @@
+import {useState} from "react";
 import styles from "./styles.module.scss";
 import FallbackIcon from "../Icons/FallbackIcon";
 import AddToCartButton from "../Buttons/AddToCart/AddToCartButton";
 
 export default function ProductCard(props) {
+  const [isActive, setActive] = useState(false);
+  const [count, setCount] = useState(0);
+
+  const initializeButton = () => {
+    setActive(true);
+    setCount((prevCount) => prevCount + 1);
+    // console.log("state updated");
+  };
+
+  const incrementCount = () => {
+    setCount((prevCount) => prevCount + 1);
+    console.log("clicked +");
+    console.log("the count", count);
+  };
+
+  const decrementCount = () => {
+    setCount((prevCount) => {
+      if (prevCount === 0) {
+        setActive(false);
+      }
+
+      return prevCount - 1;
+    });
+
+    console.log("the count", count);
+    console.log("clicked -");
+  };
+
   return (
     <>
       <article className={styles["product-card"]}>
@@ -23,7 +52,13 @@ export default function ProductCard(props) {
             </div>
           )}
           <div className={styles["product-card__actions"]}>
-            <AddToCartButton />
+            <AddToCartButton
+              isActive={isActive}
+              count={count}
+              initializeButton={initializeButton}
+              incrementCount={incrementCount}
+              decrementCount={decrementCount}
+            />
           </div>
         </div>
         <div className={styles["product-card__info"]}>
