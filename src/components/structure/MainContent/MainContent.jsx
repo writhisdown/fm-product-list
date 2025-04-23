@@ -1,17 +1,11 @@
-import ProductShelf from "../ProductShelf/ProductShelf";
-import Cart from "../Cart/Cart";
 import styles from "./styles.module.scss";
+import ProductPage from "../ProductPage/ProductPage";
 
-export default function MainContent({title}) {
-  console.log(title);
+export default function MainContent() {
   return (
     <>
       <section className={styles.content}>
-        <div>
-          <h1 className={styles.content__title}>{title}</h1>
-          <ProductShelf />
-        </div>
-        <Cart />
+        <ProductPage />
       </section>
     </>
   );

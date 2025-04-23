@@ -1,21 +1,4 @@
-@import "../../../utilities/styles/breakpoints.scss";
-
 .content {
   max-width: var(--spacing-max-content);
   width: 100%;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  margin-inline: auto;
-  margin-top: var(--spacing-1100);
-
-  @include screen-md {
-    -moz-column-gap: var(--spacing-400);
-         column-gap: var(--spacing-400);
-  }
-
-  &__title {
-    font: var(--text-lrg-700);
-    color: var(--clr-rose-900);
-    margin-bottom: var(--spacing-400);
-  }
 }

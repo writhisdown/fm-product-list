@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useState } from "react";
 import styles from "./styles.module.scss";
 import FallbackIcon from "../Icons/FallbackIcon";
 import AddToCartButton from "../Buttons/AddToCart/AddToCartButton";
@@ -15,15 +15,21 @@ export default function ProductCard(props) {
 
   const incrementCount = () => {
     setCount((prevCount) => prevCount + 1);
-    console.log("clicked +");
-    console.log("the count", count);
+    // console.log("clicked +");
+    console.log("plus count", count + 1);
+    // console.log("plus pre count:", prevCount);
+    console.log("plus is active", isActive);
   };
 
   const decrementCount = () => {
     setCount((prevCount) => {
-      if (prevCount === 0) {
+      if (count - 1 === 0) {
         setActive(false);
       }
+
+      console.log("minus count:", count - 1);
+      // console.log("minus pre count:", prevCount);
+      console.log("minus is active", isActive);
 
       return prevCount - 1;
     });
