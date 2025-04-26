@@ -3,9 +3,12 @@
 .product-page {
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr auto;
-  margin-inline: auto;
-  margin-top: var(--spacing-1100);
+  grid-template-columns: var(--product-page-columns, 1fr);
+  row-gap: var(--spacing-400);
+
+  @include screen-lg {
+    --product-page-columns: 1fr auto;
+  }
 
   @include screen-md {
     -moz-column-gap: var(--spacing-400);

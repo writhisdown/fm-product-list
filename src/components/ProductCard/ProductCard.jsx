@@ -1,46 +1,10 @@
-import { useState } from "react";
 import styles from "./styles.module.scss";
 import FallbackIcon from "../Icons/FallbackIcon";
-import AddToCartButton from "../Buttons/AddToCart/AddToCartButton";
 
 export default function ProductCard(props) {
-  const [isActive, setActive] = useState(false);
-  const [count, setCount] = useState(0);
-
-  const initializeButton = () => {
-    setActive(true);
-    setCount((prevCount) => prevCount + 1);
-    // console.log("state updated");
-  };
-
-  const incrementCount = () => {
-    setCount((prevCount) => prevCount + 1);
-    // console.log("clicked +");
-    console.log("plus count", count + 1);
-    // console.log("plus pre count:", prevCount);
-    console.log("plus is active", isActive);
-  };
-
-  const decrementCount = () => {
-    setCount((prevCount) => {
-      if (count - 1 === 0) {
-        setActive(false);
-      }
-
-      console.log("minus count:", count - 1);
-      // console.log("minus pre count:", prevCount);
-      console.log("minus is active", isActive);
-
-      return prevCount - 1;
-    });
-
-    console.log("the count", count);
-    console.log("clicked -");
-  };
-
   return (
     <>
-      <article className={styles["product-card"]}>
+      <article id={props.id} className={styles["product-card"]}>
         <div className={styles["product-card__header"]}>
           {props.largeUrl || props.mediumUrl || props.defaultUrl ? (
             <picture>
@@ -58,13 +22,7 @@ export default function ProductCard(props) {
             </div>
           )}
           <div className={styles["product-card__actions"]}>
-            <AddToCartButton
-              isActive={isActive}
-              count={count}
-              initializeButton={initializeButton}
-              incrementCount={incrementCount}
-              decrementCount={decrementCount}
-            />
+            {props.children}
           </div>
         </div>
         <div className={styles["product-card__info"]}>

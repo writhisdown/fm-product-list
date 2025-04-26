@@ -1,12 +1,12 @@
-import { createContext, useState } from "react";
+import {createContext, useState} from "react";
 
-export const ProductContext = createContext("light");
+export const ProductContext = createContext();
 
-export const ProductProvider = ({ children }) => {
-  const [selectedProduct, setSelectedProduct] = useState(null);
+export const ProductProvider = ({children}) => {
+  const [activeProduct, setActiveProduct] = useState(null);
 
   return (
-    <ProductContext.Provider value={{ selectedProduct, setSelectedProduct }}>
+    <ProductContext.Provider value={{activeProduct, setActiveProduct}}>
       {children}
     </ProductContext.Provider>
   );

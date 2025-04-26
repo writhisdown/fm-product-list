@@ -4,7 +4,7 @@ import MinusIcon from "../../Icons/MinusIcon";
 import PlusIcon from "../../Icons/PlusIcon";
 
 export default function AddToCartButton({
-  isActive,
+  activeButton,
   count,
   initializeButton,
   incrementCount,
@@ -12,7 +12,7 @@ export default function AddToCartButton({
 }) {
   return (
     <>
-      {isActive ? (
+      {activeButton ? (
         <div className={`${styles["add-to-cart"]} ${styles.active}`}>
           <button type="button" onClick={decrementCount}>
             <MinusIcon />
