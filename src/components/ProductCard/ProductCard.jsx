@@ -29,7 +29,7 @@ export default function ProductCard(props) {
           <span className={styles["product-card__category"]}>
             {props.category}
           </span>
-          <h3 className={styles["product-card__title"]}>{props.title}</h3>
+          <h2 className={styles["product-card__title"]}>{props.title}</h2>
           <span className={styles["product-card__price"]}>${props.price}</span>
         </div>
       </article>

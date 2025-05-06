@@ -1,22 +1,24 @@
 .button {
   display: flex;
   align-items: center;
+  justify-content: var(--button-inline-position, normal);
   -moz-column-gap: var(--spacing-100);
   column-gap: var(--spacing-100);
-  padding-block: var(--spacing-150);
+  padding-block: var(--button-block-spacing, var(--spacing-150));
   padding-inline: var(--spacing-300);
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  background: var(--clr-white);
+  width: var(--button-width, -webkit-fit-content);
+  width: var(--button-width, -moz-fit-content);
+  width: var(--button-width, fit-content);
+  background: var(--button-bg-color, var(--clr-white));
   border: 1px solid var(--clr-rose-400);
   border-radius: 999px;
-  font: var(--text-sm-500);
-  color: var(--clr-rose-900);
+  font: var(--button-font-size, var(--text-sm-500));
+  color: var(--button-text-color, var(--clr-rose-900));
 
   &:hover {
-    color: var(--clr-red);
+    color: var(--button-text-hover-color, var(--clr-red));
     border: 1px solid var(--clr-red);
+    background: var(--button-bg-hover-color, var(--clr-white));
   }
 
   &:focus {
@@ -31,5 +33,9 @@
     width: 20px;
     height: 20px;
     color: var(--clr-red);
+  }
+
+  span {
+    font: inherit;
   }
 }

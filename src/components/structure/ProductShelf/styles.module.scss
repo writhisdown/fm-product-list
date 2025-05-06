@@ -2,15 +2,19 @@
 
 .product-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(
+    var(--product-grid-columns, 1),
+    var(--product-grid-size, 1fr)
+  );
   row-gap: var(--spacing-400);
 
   @include screen-sm {
-    grid-template-columns: repeat(2, 1fr);
+    --product-grid-columns: 2;
     gap: var(--spacing-400) var(--spacing-300);
   }
 
   @include screen-md {
-    grid-template-columns: repeat(3, 1fr);
+    --product-grid-columns: 3;
+    --product-grid-size: minmax(200px, 1fr);
   }
 }

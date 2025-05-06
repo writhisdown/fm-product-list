@@ -1,3 +1,4 @@
+import Button from "../Button/Button";
 import styles from "./styles.module.scss";
 import CartIcon from "../../Icons/CartIcon";
 import MinusIcon from "../../Icons/MinusIcon";
@@ -23,14 +24,10 @@ export default function AddToCartButton({
           </button>
         </div>
       ) : (
-        <button
-          type="button"
-          className={styles["add-to-cart"]}
-          onClick={initializeButton}
-        >
+        <Button handleClick={initializeButton}>
           <CartIcon />
           <span>Add to Cart</span>
-        </button>
+        </Button>
       )}
     </>
   );

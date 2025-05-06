@@ -7,7 +7,7 @@
   row-gap: var(--spacing-400);
 
   @include screen-lg {
-    --product-page-columns: 1fr auto;
+    --product-page-columns: auto minmax(25%, 384px);
   }
 
   @include screen-md {
