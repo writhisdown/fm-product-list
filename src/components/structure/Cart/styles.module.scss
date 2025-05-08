@@ -54,6 +54,8 @@
 
 .cart__item {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   -moz-column-gap: var(--spacing-150);
   column-gap: var(--spacing-150);
   border-bottom: 1px solid var(--clr-rose-100);

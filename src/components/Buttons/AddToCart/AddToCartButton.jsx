@@ -15,13 +15,33 @@ export default function AddToCartButton({
     <>
       {activeButton ? (
         <div className={`${styles["add-to-cart"]} ${styles.active}`}>
-          <button type="button" onClick={decrementCount}>
+          <Button
+            isMiniButton={true}
+            style={{
+              "--button-border-color": "var(--clr-white)",
+              "--button-border-hover-color": "var(--clr-white)",
+              "--button-icon-color": "var(--clr-white)",
+              "--button-icon-hover-color": "var(--clr-red)",
+            }}
+            ariaLabel={"decrease item count"}
+            handleClick={decrementCount}
+          >
             <MinusIcon />
-          </button>
+          </Button>
           <span>{count}</span>
-          <button type="button" onClick={incrementCount}>
+          <Button
+            isMiniButton={true}
+            style={{
+              "--button-border-color": "var(--clr-white)",
+              "--button-border-hover-color": "var(--clr-white)",
+              "--button-icon-color": "var(--clr-white)",
+              "--button-icon-hover-color": "var(--clr-red)",
+            }}
+            ariaLabel={"increase item count"}
+            handleClick={incrementCount}
+          >
             <PlusIcon />
-          </button>
+          </Button>
         </div>
       ) : (
         <Button handleClick={initializeButton}>

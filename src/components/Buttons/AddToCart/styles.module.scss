@@ -16,12 +16,6 @@
   span {
     font: var(--text-sm-500);
   }
-
-  svg {
-    width: var(--button-icon-size, 20px);
-    height: var(--button-icon-size, 20px);
-    color: var(--button-icon-color, var(--clr-red));
-  }
 }
 
 button.add-to-cart {
@@ -42,21 +36,9 @@ button.add-to-cart {
 .active {
   --button-width: 154px;
   --button-inline-spacing: var(--spacing-150);
-  --button-icon-size: 10px;
-  --button-icon-color: var(--clr-white);
   --button-font-color: var(--clr-white);
   --button-border-color: var(--clr-red);
   --button-bg-color: var(--clr-red);
 
   justify-content: space-between;
-
-  button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 20px;
-    height: 20px;
-    border: 1px solid var(--clr-white);
-    border-radius: 50%;
-  }
 }

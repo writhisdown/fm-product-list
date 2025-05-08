@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import Button from "../../Buttons/Button/Button";
 import styles from "./styles.module.scss";
 import EmptyCartIcon from "../../Icons/EmptyCartIcon";
+import CloseIcon from "../../Icons/CloseIcon";
 import CarbonTreeIcon from "../../Icons/CarbonTree";
 
 export default function Cart(props) {
@@ -42,9 +43,6 @@ export default function Cart(props) {
 
                 totalPriceArray.push(itemTotal);
 
-                // const cartTotal = () => totalPriceArray.push(itemTotal);
-                // cartTotal();
-
                 console.log("current count", countObject);
 
                 console.log("item total:", itemTotal);
@@ -67,6 +65,20 @@ export default function Cart(props) {
                         ${itemTotal.toFixed(2)}
                       </span>
                     </div>
+                    <Button
+                      isMiniButton={true}
+                      style={{
+                        "--button-border-width": "2px",
+                        "--button-border-hover-width": "2px",
+                        "--button-border-color": "var(--clr-rose-400)",
+                        "--button-border-hover-color": "var(--clr-rose-900)",
+                        "--button-icon-color": "var(--clr-rose-400)",
+                        "--button-icon-hover-color": "var(--clr-rose-900)",
+                      }}
+                      ariaLabel={"remove item"}
+                    >
+                      <CloseIcon />
+                    </Button>
                   </li>
                 );
               })}

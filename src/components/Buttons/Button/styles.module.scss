@@ -9,16 +9,23 @@
   width: var(--button-width, -webkit-fit-content);
   width: var(--button-width, -moz-fit-content);
   width: var(--button-width, fit-content);
+  height: var(--button-height, initial);
   background: var(--button-bg-color, var(--clr-white));
-  border: 1px solid var(--clr-rose-400);
-  border-radius: 999px;
+  border: var(--button-border-width, 1px) solid
+    var(--button-border-color, var(--clr-rose-400));
+  border-radius: var(--button-border-radius, 999px);
   font: var(--button-font-size, var(--text-sm-500));
   color: var(--button-text-color, var(--clr-rose-900));
 
   &:hover {
     color: var(--button-text-hover-color, var(--clr-red));
-    border: 1px solid var(--clr-red);
+    border: var(--button-border-hover-width, 1px) solid
+      var(--button-border-hover-color, var(--clr-red));
     background: var(--button-bg-hover-color, var(--clr-white));
+  }
+
+  &:hover svg {
+    color: var(--button-icon-hover-color, var(--clr-red));
   }
 
   &:focus {
@@ -30,12 +37,23 @@
   }
 
   svg {
-    width: 20px;
-    height: 20px;
-    color: var(--clr-red);
+    width: var(--button-icon-width, 20px);
+    height: var(--button-icon-width, 20px);
+    color: var(--button-icon-color, var(--clr-red));
   }
 
   span {
     font: inherit;
   }
+}
+
+.button--mini {
+  --button-width: 20px;
+  --button-height: 20px;
+  --button-icon-width: 10px;
+  --button-icon-height: 10px;
+  --button-border-radius: 50%;
+  --button-bg-color: transparent;
+  --button-inline-position: center;
+  padding: 0;
 }
