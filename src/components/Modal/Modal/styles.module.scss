@@ -1,0 +1,24 @@
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-400);
+  background: var(--clr-white);
+  border: none;
+  border-radius: var(--spacing-150);
+  // height: 685px;
+  max-width: 592px;
+  width: 100%;
+  padding: var(--spacing-500);
+
+  &:not([open]) {
+    display: none;
+  }
+
+  &::-webkit-backdrop {
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  &::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+  }
+}

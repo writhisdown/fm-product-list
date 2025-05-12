@@ -65,9 +65,12 @@
 
 @layer reset {
   * {
-    margin: 0;
     padding: 0;
     font: var(--text-body);
+  }
+
+  *:not(dialog) {
+    margin: 0;
   }
 
   h1,

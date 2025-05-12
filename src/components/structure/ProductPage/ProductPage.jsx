@@ -1,11 +1,10 @@
-// import { ProductProvider } from "../../../context/ProductContext";
-// import {ProductContext} from "../../../context/ProductContext";
-import {useState, useContext} from "react";
+import {useState} from "react";
 import products from "../../../data/products";
 import ProductShelf from "../ProductShelf/ProductShelf";
 import ProductCard from "../../ProductCard/ProductCard";
 import AddToCartButton from "../../Buttons/AddToCart/AddToCartButton";
-import Cart from "../Cart/Cart";
+import Cart from "../../Cart/Cart";
+import Modal from "../../Modal/Modal/Modal";
 import styles from "./styles.module.scss";
 
 export default function ProductPage() {
@@ -16,6 +15,8 @@ export default function ProductPage() {
   const [activeButton, setActiveButton] = useState({});
   // handle state for add to cart count
   const [count, setCount] = useState({}); // set initial state as empty object
+  // set open / close state for modal
+  const [openModal, setOpenModal] = useState(false);
 
   // render add to cart button with increment & decrement controls
   const initializeButton = (id, product) => {
@@ -74,9 +75,9 @@ export default function ProductPage() {
     });
   };
 
-  const filterProducts = Object.keys(activeButton).filter(
-    (item, index) => item[index]
-  );
+  // const filterProducts = Object.keys(activeButton).filter(
+  //   (item, index) => item[index]
+  // );
   // Check if any values of new activeButtons array return true
   const isSelectedProduct = Object.values(activeButton).includes(true);
 
@@ -92,7 +93,7 @@ export default function ProductPage() {
     const initialCartTotal = 0;
     let countArray = Object.values(count);
 
-    const countFilter = countArray.filter((item, index) => item[index]);
+    // const countFilter = countArray.filter((item, index) => item[index]);
 
     if (isSelectedProduct) {
       let cartTotal = countArray.reduce(
@@ -100,14 +101,14 @@ export default function ProductPage() {
         initialCartTotal
       );
 
-      console.log("count filter:", countFilter);
+      // console.log("count filter:", countFilter);
 
-      console.log("cart count object:", count);
-      console.log("cart count array:", countArray);
-      console.log("cart count:", cartTotal);
-      console.log("filtered products:", filterProducts);
+      // console.log("cart count object:", count);
+      // console.log("cart count array:", countArray);
+      // console.log("cart count:", cartTotal);
+      // console.log("filtered products:", filterProducts);
       // console.log(JSON.stringify(cartItems));
-      console.log(cartItems);
+      // console.log(cartItems);
 
       return cartTotal;
     } else {
@@ -127,11 +128,46 @@ export default function ProductPage() {
       count: value,
     }));
 
-  console.log("item count:", itemCount);
+  // console.log("item count:", itemCount);
+
+  // reset active button state to false to remove item from cart
+  // then subtract the current count from itself to reflect the correct
+  // cart count
+  const removeItem = (id) => {
+    setActiveButton((prevProduct) => ({
+      ...prevProduct,
+      [id]: false,
+    }));
+
+    setCount((prevCount) => ({
+      ...prevCount,
+      [id]: prevCount[id] - prevCount[id],
+    }));
+    console.log("item to removeItem:", id);
+  };
+
+  const handleOpen = () => {
+    setOpenModal(true);
+  };
+
+  const handleClose = () => {
+    setOpenModal(false);
+  };
+
+  // reset dialog state to close when ESC key is used to exit the modal
+  const handleEscape = (event) => {
+    console.log("event:", event);
+    console.log("event key:", event.key);
+    console.log("is open:", openModal);
+    if (event.key === "Escape") {
+      // dialogElement?.close();
+      // return !isOpen;
+      handleClose();
+    }
+  };
 
   return (
     <>
-      {/* <ProductProvider> */}
       <section className={styles["product-page"]}>
         <div>
           <h1 className={styles["product-page__title"]}>Desserts</h1>
@@ -168,9 +204,11 @@ export default function ProductPage() {
           isEmptyCart={!isSelectedProduct}
           cartItems={cartItems}
           itemCount={itemCount}
+          handleRemove={removeItem}
+          handleModal={handleOpen}
         />
       </section>
-      {/* </ProductProvider> */}
+      <Modal isOpen={openModal} handleEscape={handleEscape}></Modal>
     </>
   );
 }

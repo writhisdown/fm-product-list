@@ -1,11 +1,18 @@
 import {useEffect, useState} from "react";
-import Button from "../../Buttons/Button/Button";
+import Button from "../Buttons/Button/Button";
 import styles from "./styles.module.scss";
-import EmptyCartIcon from "../../Icons/EmptyCartIcon";
-import CloseIcon from "../../Icons/CloseIcon";
-import CarbonTreeIcon from "../../Icons/CarbonTree";
+import EmptyCartIcon from "../Icons/EmptyCartIcon";
+import CloseIcon from "../Icons/CloseIcon";
+import CarbonTreeIcon from "../Icons/CarbonTree";
 
-export default function Cart(props) {
+export default function Cart({
+  cartTotal,
+  isEmptyCart,
+  cartItems,
+  itemCount,
+  handleRemove,
+  handleModal,
+}) {
   const [totalPrice, setTotalPrice] = useState(0);
   const totalPriceArray = [];
   useEffect(() => {
@@ -18,9 +25,9 @@ export default function Cart(props) {
       <div className={styles["cart"]}>
         <div className={styles["cart__heading"]}>
           <h3>Your Cart</h3>
-          <span>{`(${props.cartTotal})`}</span>
+          <span>{`(${cartTotal})`}</span>
         </div>
-        {props.isEmptyCart ? (
+        {isEmptyCart ? (
           <>
             <div className={styles["cart__placeholder-img"]}>
               <span className="screen-reader-text">Cart is empty</span>
@@ -33,8 +40,8 @@ export default function Cart(props) {
         ) : (
           <>
             <ul className={styles["cart__list"]}>
-              {props.cartItems.map((item) => {
-                const countObject = props.itemCount.find(
+              {cartItems.map((item) => {
+                const countObject = itemCount.find(
                   (selected) => selected.id == item.id
                 );
                 const currentCount = countObject ? countObject.count : "";
@@ -76,6 +83,7 @@ export default function Cart(props) {
                         "--button-icon-hover-color": "var(--clr-rose-900)",
                       }}
                       ariaLabel={"remove item"}
+                      handleClick={() => handleRemove(item.id)}
                     >
                       <CloseIcon />
                     </Button>
@@ -106,6 +114,7 @@ export default function Cart(props) {
                   "--button-bg-hover-color": "var(--clr-red-100)",
                   "--button-font-size": "var(--text-body)",
                 }}
+                handleClick={handleModal}
               >
                 Confirm Order
               </Button>
