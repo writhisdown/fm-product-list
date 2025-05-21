@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
 import Button from "../Buttons/Button/Button";
+import ProductListItem from "../ProductListItem/ProductListItem"
 import styles from "./styles.module.scss";
 import EmptyCartIcon from "../Icons/EmptyCartIcon";
-import CloseIcon from "../Icons/CloseIcon";
 import CarbonTreeIcon from "../Icons/CarbonTree";
 
 export default function Cart({
@@ -59,35 +59,14 @@ export default function Cart({
                 console.log("price total:", totalPrice);
 
                 return (
-                  <li className={styles["cart__item"]}>
-                    <div className={styles["cart__item-details"]}>
-                      <h3 className={styles["cart__item-name"]}>{item.name}</h3>
-                      <span className={styles["cart__item-count"]}>
-                        {currentCount}x
-                      </span>
-                      <span className={styles["cart__item-price"]}>
-                        @ ${itemPrice.toFixed(2)}
-                      </span>
-                      <span className={styles["cart__item-total"]}>
-                        ${itemTotal.toFixed(2)}
-                      </span>
-                    </div>
-                    <Button
-                      isMiniButton={true}
-                      style={{
-                        "--button-border-width": "2px",
-                        "--button-border-hover-width": "2px",
-                        "--button-border-color": "var(--clr-rose-400)",
-                        "--button-border-hover-color": "var(--clr-rose-900)",
-                        "--button-icon-color": "var(--clr-rose-400)",
-                        "--button-icon-hover-color": "var(--clr-rose-900)",
-                      }}
-                      ariaLabel={"remove item"}
-                      handleClick={() => handleRemove(item.id)}
-                    >
-                      <CloseIcon />
-                    </Button>
-                  </li>
+                  <ProductListItem
+                    productName={item.name}
+                    productCount={currentCount}
+                    productPrice={itemPrice}
+                    productTotal={itemTotal}
+                    productAction={true}
+                    handleClick={() => handleRemove(item.id)}
+                  />
                 );
               })}
             </ul>

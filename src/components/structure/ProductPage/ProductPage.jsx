@@ -5,6 +5,10 @@ import ProductCard from "../../ProductCard/ProductCard";
 import AddToCartButton from "../../Buttons/AddToCart/AddToCartButton";
 import Cart from "../../Cart/Cart";
 import Modal from "../../Modal/Modal/Modal";
+import ModalHeader from "../../Modal/Modal/ModalHeader";
+import ModalBody from "../../Modal/Modal/ModalBody";
+import Button from "../../Buttons/Button/Button";
+import ProductListItem from "../../ProductListItem/ProductListItem";
 import styles from "./styles.module.scss";
 
 export default function ProductPage() {
@@ -208,7 +212,49 @@ export default function ProductPage() {
           handleModal={handleOpen}
         />
       </section>
-      <Modal isOpen={openModal} handleEscape={handleEscape}></Modal>
+      <Modal isOpen={openModal} handleEscape={handleEscape}>
+        <ModalHeader 
+          confirmationIcon={true}
+          modalTitle="Order Confirmed" 
+          modalMessage="We hope you enjoy your food!"
+        />
+        <ModalBody>
+          <ul>
+            {cartItems.map((item) => {
+              const {thumbnail} = item.image;
+              const countObject = itemCount.find(
+                  (selected) => selected.id == item.id
+                );
+                const currentCount = countObject ? countObject.count : "";
+                const itemTotal = item.price * currentCount;
+
+              return (
+                <ProductListItem
+                  productName={item.name}
+                  productCount={currentCount}
+                  productPrice={item.price}
+                  productTotal={itemTotal}
+                  productThumb={thumbnail}
+                />
+              );
+            })}
+          </ul>
+        </ModalBody>
+        <Button
+          style={{
+            "--button-bg-color": "var(--clr-red)",
+            "--button-text-color": "var(--clr-white)",
+            "--button-width": "100%",
+            "--button-inline-position": "center",
+            "--button-text-hover-color": "var(--clr-white)",
+            "--button-bg-hover-color": "var(--clr-red-100)",
+            "--button-font-size": "var(--text-body)",
+          }}
+          handleClick={handleClose}
+        >
+          Start New Order
+        </Button>
+      </Modal>
     </>
   );
 }

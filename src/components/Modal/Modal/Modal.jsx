@@ -19,7 +19,7 @@ export default function Modal({isOpen, handleEscape, children}) {
 
   return (
     <dialog
-      className={styles["modal-container"]}
+      className={styles.modal}
       ref={dialogRef}
       onKeyDown={handleEscape}
     >

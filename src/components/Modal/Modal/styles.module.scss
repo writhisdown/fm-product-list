@@ -1,11 +1,10 @@
-.modal-container {
+.modal {
   display: flex;
   flex-direction: column;
   row-gap: var(--spacing-400);
   background: var(--clr-white);
   border: none;
   border-radius: var(--spacing-150);
-  // height: 685px;
   max-width: 592px;
   width: 100%;
   padding: var(--spacing-500);
@@ -21,4 +20,26 @@
   &::backdrop {
     background: rgba(0, 0, 0, 0.5);
   }
+}
+
+.modal__header h1 {
+  margin-bottom: var(--spacing-100);
+  font: var(--text-lrg-700);
+  color: var(--clr-rose-900);
+}
+
+.modal__header p {
+  color: var(--clr-rose-500);
+}
+
+.modal__header-icon {
+  margin-bottom: var(--spacing-300);
+  color: var(--clr-green);
+}
+
+.modal__body {
+  max-height: 340px;
+  padding: var(--spacing-300);
+  border-radius: var(--spacing-100);
+  background: var(--clr-rose-50);
 }
