@@ -1,0 +1,14 @@
+.order-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  dt {
+    color: var(--clr-rose-900);
+    font: var(--text-sm-400);
+  }
+
+  dd {
+    font: var(--text-md-700);
+  }
+}

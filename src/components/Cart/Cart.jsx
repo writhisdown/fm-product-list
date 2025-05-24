@@ -1,6 +1,5 @@
-import {useEffect, useState} from "react";
 import Button from "../Buttons/Button/Button";
-import ProductListItem from "../ProductListItem/ProductListItem"
+import ProductListItem from "../ProductListItem/ProductListItem";
 import styles from "./styles.module.scss";
 import EmptyCartIcon from "../Icons/EmptyCartIcon";
 import CarbonTreeIcon from "../Icons/CarbonTree";
@@ -12,14 +11,8 @@ export default function Cart({
   itemCount,
   handleRemove,
   handleModal,
+  children,
 }) {
-  const [totalPrice, setTotalPrice] = useState(0);
-  const totalPriceArray = [];
-  useEffect(() => {
-    const total = totalPriceArray.reduce((acc, currVal) => acc + currVal, 0);
-    setTotalPrice(total);
-  }, [totalPriceArray, totalPrice]);
-
   return (
     <>
       <div className={styles["cart"]}>
@@ -48,15 +41,9 @@ export default function Cart({
                 const itemPrice = item.price;
                 const itemTotal = itemPrice * currentCount;
 
-                totalPriceArray.push(itemTotal);
-
                 console.log("current count", countObject);
 
                 console.log("item total:", itemTotal);
-
-                console.log("array count", totalPriceArray);
-
-                console.log("price total:", totalPrice);
 
                 return (
                   <ProductListItem
@@ -71,10 +58,7 @@ export default function Cart({
               })}
             </ul>
             <div className={styles["cart__footer"]}>
-              <dl className={styles["cart__order-total"]}>
-                <dt>Order Total</dt>
-                <dd>${totalPrice.toFixed(2)}</dd>
-              </dl>
+              {children}
               <div className={styles["cart__legal-container"]}>
                 <div className={styles["cart__legal"]}>
                   <CarbonTreeIcon />

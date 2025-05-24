@@ -38,6 +38,9 @@
 }
 
 .modal__body {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-300);
   max-height: 340px;
   padding: var(--spacing-300);
   border-radius: var(--spacing-100);

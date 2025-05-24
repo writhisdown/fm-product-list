@@ -9,6 +9,7 @@ import ModalHeader from "../../Modal/Modal/ModalHeader";
 import ModalBody from "../../Modal/Modal/ModalBody";
 import Button from "../../Buttons/Button/Button";
 import ProductListItem from "../../ProductListItem/ProductListItem";
+import OrderTotal from "../../OrderTotal/OrderTotal";
 import styles from "./styles.module.scss";
 
 export default function ProductPage() {
@@ -21,6 +22,8 @@ export default function ProductPage() {
   const [count, setCount] = useState({}); // set initial state as empty object
   // set open / close state for modal
   const [openModal, setOpenModal] = useState(false);
+
+  const totalCostArray = [];
 
   // render add to cart button with increment & decrement controls
   const initializeButton = (id, product) => {
@@ -210,7 +213,9 @@ export default function ProductPage() {
           itemCount={itemCount}
           handleRemove={removeItem}
           handleModal={handleOpen}
-        />
+        >
+          <OrderTotal currentCost={totalCostArray} />
+        </Cart>
       </section>
       <Modal isOpen={openModal} handleEscape={handleEscape}>
         <ModalHeader 
@@ -225,8 +230,10 @@ export default function ProductPage() {
               const countObject = itemCount.find(
                   (selected) => selected.id == item.id
                 );
-                const currentCount = countObject ? countObject.count : "";
-                const itemTotal = item.price * currentCount;
+              const currentCount = countObject ? countObject.count : "";
+              const itemTotal = item.price * currentCount;
+
+              totalCostArray.push(itemTotal);
 
               return (
                 <ProductListItem
@@ -239,6 +246,7 @@ export default function ProductPage() {
               );
             })}
           </ul>
+          <OrderTotal currentCost={totalCostArray} />
         </ModalBody>
         <Button
           style={{
