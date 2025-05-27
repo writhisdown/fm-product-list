@@ -1,13 +1,9 @@
-.modal {
-  display: flex;
-  flex-direction: column;
-  row-gap: var(--spacing-400);
+.modal-container {
   background: var(--clr-white);
   border: none;
   border-radius: var(--spacing-150);
   max-width: 592px;
   width: 100%;
-  padding: var(--spacing-500);
 
   &:not([open]) {
     display: none;
@@ -20,6 +16,13 @@
   &::backdrop {
     background: rgba(0, 0, 0, 0.5);
   }
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-400);
+  padding: var(--spacing-500);
 }
 
 .modal__header h1 {
@@ -45,4 +48,9 @@
   padding: var(--spacing-300);
   border-radius: var(--spacing-100);
   background: var(--clr-rose-50);
+
+  ul {
+    max-height: 233px;
+    overflow-y: auto;
+  }
 }

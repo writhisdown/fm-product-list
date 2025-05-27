@@ -122,6 +122,8 @@
 
 body {
   background-color: var(--clr-rose-50);
+  overflow: var(--scroll-lock);
+  margin-inline-end: var(--scroll-bar-offset);
 }
 
 .page-container {

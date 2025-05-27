@@ -1,7 +1,9 @@
 import {useEffect, useRef} from "react";
+import { useScrollLock } from "../../../hooks/useScrollLock";
 import styles from "./styles.module.scss";
 
-export default function Modal({isOpen, handleEscape, children}) {
+export default function Modal({isOpen, handleEscape, handleOutsideClick, children}) {
+  const {lockScroll, unlockScroll} = useScrollLock();
   const dialogRef = useRef();
   const dialogElement = dialogRef.current;
 
@@ -10,8 +12,10 @@ export default function Modal({isOpen, handleEscape, children}) {
 
     if (isOpen) {
       dialogElement?.showModal();
+      lockScroll();
     } else {
       dialogElement?.close();
+      unlockScroll();
     }
 
     console.log("dialog open:", isOpen);
@@ -19,11 +23,14 @@ export default function Modal({isOpen, handleEscape, children}) {
 
   return (
     <dialog
-      className={styles.modal}
+      className={styles["modal-container"]}
       ref={dialogRef}
       onKeyDown={handleEscape}
+      onClick={handleOutsideClick}
     >
-      {children}
+      <div className={styles.modal}>
+        {children}
+      </div>
     </dialog>
   );
 }

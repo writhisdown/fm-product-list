@@ -13,8 +13,6 @@ import OrderTotal from "../../OrderTotal/OrderTotal";
 import styles from "./styles.module.scss";
 
 export default function ProductPage() {
-  // capture data of currently selected product
-  // const {setActiveProduct} = useContext(ProductContext);
   // handle state for rendering default button and add to cart button
   // set initial state as empty object to handle multiple button clicks
   const [activeButton, setActiveButton] = useState({});
@@ -153,6 +151,10 @@ export default function ProductPage() {
     console.log("item to removeItem:", id);
   };
 
+  const clearItems = () => {
+    cartItems.forEach((item) => removeItem(item.id));
+  }
+
   const handleOpen = () => {
     setOpenModal(true);
   };
@@ -160,6 +162,11 @@ export default function ProductPage() {
   const handleClose = () => {
     setOpenModal(false);
   };
+
+  const resetCart = () => {
+    clearItems();
+    handleClose();
+  }
 
   // reset dialog state to close when ESC key is used to exit the modal
   const handleEscape = (event) => {
@@ -172,6 +179,12 @@ export default function ProductPage() {
       handleClose();
     }
   };
+
+  const handleOutsideClick = (event) => {
+    if (event.target.nodeName === 'DIALOG') {
+      handleClose();
+    }
+  }
 
   return (
     <>
@@ -217,7 +230,11 @@ export default function ProductPage() {
           <OrderTotal currentCost={totalCostArray} />
         </Cart>
       </section>
-      <Modal isOpen={openModal} handleEscape={handleEscape}>
+      <Modal 
+        isOpen={openModal} 
+        handleEscape={handleEscape}
+        handleOutsideClick={handleOutsideClick}
+      >
         <ModalHeader 
           confirmationIcon={true}
           modalTitle="Order Confirmed" 
@@ -258,7 +275,7 @@ export default function ProductPage() {
             "--button-bg-hover-color": "var(--clr-red-100)",
             "--button-font-size": "var(--text-body)",
           }}
-          handleClick={handleClose}
+          handleClick={resetCart}
         >
           Start New Order
         </Button>
