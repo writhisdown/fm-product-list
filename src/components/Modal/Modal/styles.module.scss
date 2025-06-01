@@ -5,8 +5,8 @@
   max-width: 592px;
   width: 100%;
 
-  &:not([open]) {
-    display: none;
+  &[open] {
+    animation: slideUp 800ms ease-in-out;
   }
 
   &::-webkit-backdrop {
@@ -52,5 +52,14 @@
   ul {
     max-height: 233px;
     overflow-y: auto;
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(200%);
+  }
+  100% {
+    transform: translateY(0);
   }
 }
