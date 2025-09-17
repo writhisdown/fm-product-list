@@ -1,0 +1,29 @@
+@mixin fadeInAnimation($duration: 500ms, $timing-function: ease-in-out, $direction: null) {
+  animation: fadeIn $duration $timing-function $direction;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@mixin transitionAnimation($startColor, $endColor, $duration: 500ms, $timing-function: ease-in-out, $fill-mode: null) {
+  animation: transitionColor $duration $timing-function $fill-mode;
+
+  @keyframes transitionColor {
+    0% {
+      background-color: $startColor;
+    }
+    100% {
+      background-color: $endColor;
+    }
+  }
+}
+  
+.some-style {
+  animation: name duration timing-function delay iteration-count direction fill-mode;
+}

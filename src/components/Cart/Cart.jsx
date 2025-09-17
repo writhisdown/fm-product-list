@@ -1,27 +1,27 @@
-import Button from "../Buttons/Button/Button";
-import ProductListItem from "../ProductListItem/ProductListItem";
 import styles from "./styles.module.scss";
+import Button from "../Buttons/Button/Button";
 import EmptyCartIcon from "../Icons/EmptyCartIcon";
 import CarbonTreeIcon from "../Icons/CarbonTree";
+import OrderList from "../OrderList/OrderList";
+import OrderTotal from "../OrderTotal/OrderTotal";
 
 export default function Cart({
-  cartTotal,
-  isEmptyCart,
-  cartItems,
-  itemCount,
+  items,
+  total,
   handleRemove,
   handleModal,
-  children,
 }) {
   return (
     <>
       <div className={styles["cart"]}>
         <div className={styles["cart__heading"]}>
           <h3>Your Cart</h3>
-          <span>{`(${cartTotal})`}</span>
+          <span>{`(${total.count ? total.count : 0})`}</span>
         </div>
-        {isEmptyCart ? (
-          <>
+        {items.length === 0 ? (
+          <div
+            className={`${styles["cart__placeholder"]} ${items.length === 0 ? styles["fade-in"] : ""}`}
+          >
             <div className={styles["cart__placeholder-img"]}>
               <span className="screen-reader-text">Cart is empty</span>
               <EmptyCartIcon />
@@ -29,36 +29,25 @@ export default function Cart({
             <span className={styles["cart__placeholder-message"]}>
               Your added items will appear here
             </span>
-          </>
+          </div>
         ) : (
-          <>
+          <div
+            className={items.length > 0 ? styles["fade-in"] : ""}
+          >
             <ul className={styles["cart__list"]}>
-              {cartItems.map((item) => {
-                const countObject = itemCount.find(
-                  (selected) => selected.id == item.id
-                );
-                const currentCount = countObject ? countObject.count : "";
-                const itemPrice = item.price;
-                const itemTotal = itemPrice * currentCount;
-
-                console.log("current count", countObject);
-
-                console.log("item total:", itemTotal);
-
+              {items.map((item) => {
                 return (
-                  <ProductListItem
-                    productName={item.name}
-                    productCount={currentCount}
-                    productPrice={itemPrice}
-                    productTotal={itemTotal}
-                    productAction={true}
+                  <OrderList
+                    key={item.id}
+                    item={item}
+                    actions={true}
                     handleClick={() => handleRemove(item.id)}
                   />
                 );
               })}
             </ul>
             <div className={styles["cart__footer"]}>
-              {children}
+              <OrderTotal total={total.price} />
               <div className={styles["cart__legal-container"]}>
                 <div className={styles["cart__legal"]}>
                   <CarbonTreeIcon />
@@ -82,7 +71,7 @@ export default function Cart({
                 Confirm Order
               </Button>
             </div>
-          </>
+          </div>
         )}
       </div>
     </>

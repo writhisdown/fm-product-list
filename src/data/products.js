@@ -1,6 +1,5 @@
 const products = [
   {
-    id: 0,
     image: {
       thumbnail: "./assets/images/image-waffle-thumbnail.jpg",
       mobile: "./assets/images/image-waffle-mobile.jpg",
@@ -12,7 +11,6 @@ const products = [
     price: 6.5,
   },
   {
-    id: 1,
     image: {
       thumbnail: "./assets/images/image-creme-brulee-thumbnail.jpg",
       mobile: "./assets/images/image-creme-brulee-mobile.jpg",
@@ -24,7 +22,6 @@ const products = [
     price: 7.0,
   },
   {
-    id: 2,
     image: {
       thumbnail: "./assets/images/image-macaron-thumbnail.jpg",
       mobile: "./assets/images/image-macaron-mobile.jpg",
@@ -36,7 +33,6 @@ const products = [
     price: 8.0,
   },
   {
-    id: 3,
     image: {
       thumbnail: "./assets/images/image-tiramisu-thumbnail.jpg",
       mobile: "./assets/images/image-tiramisu-mobile.jpg",
@@ -48,7 +44,6 @@ const products = [
     price: 5.5,
   },
   {
-    id: 4,
     image: {
       thumbnail: "./assets/images/image-baklava-thumbnail.jpg",
       mobile: "./assets/images/image-baklava-mobile.jpg",
@@ -60,7 +55,6 @@ const products = [
     price: 4.0,
   },
   {
-    id: 5,
     image: {
       thumbnail: "./assets/images/image-meringue-thumbnail.jpg",
       mobile: "./assets/images/image-meringue-mobile.jpg",
@@ -72,7 +66,6 @@ const products = [
     price: 5.0,
   },
   {
-    id: 6,
     image: {
       thumbnail: "./assets/images/image-cake-thumbnail.jpg",
       mobile: "./assets/images/image-cake-mobile.jpg",
@@ -84,7 +77,6 @@ const products = [
     price: 4.5,
   },
   {
-    id: 7,
     image: {
       thumbnail: "./assets/images/image-brownie-thumbnail.jpg",
       mobile: "./assets/images/image-brownie-mobile.jpg",
@@ -96,7 +88,6 @@ const products = [
     price: 4.5,
   },
   {
-    id: 8,
     image: {
       thumbnail: "./assets/images/image-panna-cotta-thumbnail.jpg",
       mobile: "./assets/images/image-panna-cotta-mobile.jpg",

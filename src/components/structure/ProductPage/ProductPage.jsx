@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useState, useCallback } from "react";
 import products from "../../../data/products";
 import ProductShelf from "../ProductShelf/ProductShelf";
 import ProductCard from "../../ProductCard/ProductCard";
@@ -8,153 +8,94 @@ import Modal from "../../Modal/Modal/Modal";
 import ModalHeader from "../../Modal/Modal/ModalHeader";
 import ModalBody from "../../Modal/Modal/ModalBody";
 import Button from "../../Buttons/Button/Button";
-import ProductListItem from "../../ProductListItem/ProductListItem";
+import OrderList from "../../OrderList/OrderList";
 import OrderTotal from "../../OrderTotal/OrderTotal";
 import styles from "./styles.module.scss";
 
+const productList = products.map((product) => {
+  return (
+    {
+      ...product, 
+      id: crypto.randomUUID(),
+    }
+  )
+})
+
+console.log(productList);
+
 export default function ProductPage() {
-  // handle state for rendering default button and add to cart button
-  // set initial state as empty object to handle multiple button clicks
-  const [activeButton, setActiveButton] = useState({});
-  // handle state for add to cart count
-  const [count, setCount] = useState({}); // set initial state as empty object
+  const [cartContents, setCartContents] = useState([]);
+  const [orderTotal, setOrderTotal] = useState({});
+
   // set open / close state for modal
   const [openModal, setOpenModal] = useState(false);
 
-  const totalCostArray = [];
+  function populateCart(selected) {
+    const selectedItems = productList.filter((item) => item.id === selected);
+    console.log(selectedItems);
 
-  // render add to cart button with increment & decrement controls
-  const initializeButton = (id, product) => {
-    // retrieve data from currently selected product
-    // setActiveProduct(product);
+    const nextItems = [...cartContents, ...selectedItems];
 
-    // to prevent singular useState from triggering all buttons
-    // recreate the state object & pass in the product id &
-    // previously selected button as key value pairs to keep track
-    // of the currently selected button
-    // a similar pattern is followed by the increment / decrement handlers
-    setActiveButton((prevProduct) => ({
-      ...prevProduct,
-      [id]: !prevProduct[id],
-    }));
+    setCartContents(nextItems);
 
-    // set initial count to 1
-    setCount((prevCount) => ({
-      ...prevCount,
-      [id]: (prevCount[id] = 1),
-    }));
-    // console.log("product:", product);
-  };
+    console.log('cart items:', nextItems);
+  }
 
-  // increment product count when add to cart button is active
-  const incrementCount = (id) => {
-    setCount((prevCount) => ({
-      ...prevCount,
-      [id]: (prevCount[id] || 0) + 1,
-    }));
-  };
-
-  // decrement product count when add to cart button is active
-  const decrementCount = (id) => {
-    setCount((prevCount) => {
-      // store decremented count by referencing the previous count & the
-      // relevant product object's id
-      const currentCount = (prevCount[id] || 0) - 1;
-
-      // if the count is 0 or less, change setActiveButton state to false
-      // the count cannot be reliably captured outside of the uesState operation
-      // therefore updating setActiveButton needs to be handled inside of setCount
-      if (currentCount <= 0) {
-        setActiveButton((prevProduct) => ({
-          ...prevProduct,
-          [id]: false,
-        }));
-      }
-
-      // return the current count & ensure the count cannot
-      // decrease below 0
-      return {
-        ...prevCount,
-        [id]: currentCount < 0 ? 0 : currentCount,
-      };
+  function updateProducts(selected, value) {
+    const nextItems = cartContents.map((item) => {
+      console.log(item.id);
+      console.log(item.price);
+      return item.id === selected ? {
+          ...item,
+          count: value,
+          totalPrice: item.price * value,
+        } : item
     });
-  };
 
-  // const filterProducts = Object.keys(activeButton).filter(
-  //   (item, index) => item[index]
-  // );
-  // Check if any values of new activeButtons array return true
-  const isSelectedProduct = Object.values(activeButton).includes(true);
+    setCartContents(nextItems);
+    console.log('next items:', nextItems);
 
-  // iterate over products and filter products that match the
-  // currently selected add to cart button
-  const cartItems = products.filter((item) => activeButton[item.id]);
+    getTotals(nextItems);
+  }
 
-  // let counterArray = Object.values(count);
+  function getTotals(items) {
+    const totalCount = items.map((item) => item.count)
+      .reduce((acc, val) => acc + val, 0);
 
-  // const counterFilter = counterArray.filter((item, index) => item[index]);
+    const totalPrice = items.map((item) => item.totalPrice)
+      .reduce((acc, val) => acc + val, 0);
 
-  const getCartTotal = () => {
-    const initialCartTotal = 0;
-    let countArray = Object.values(count);
+    console.log('count tally:', totalCount);
+    console.log('price tally:', totalPrice);
 
-    // const countFilter = countArray.filter((item, index) => item[index]);
-
-    if (isSelectedProduct) {
-      let cartTotal = countArray.reduce(
-        (acc, currVal) => acc + currVal,
-        initialCartTotal
-      );
-
-      // console.log("count filter:", countFilter);
-
-      // console.log("cart count object:", count);
-      // console.log("cart count array:", countArray);
-      // console.log("cart count:", cartTotal);
-      // console.log("filtered products:", filterProducts);
-      // console.log(JSON.stringify(cartItems));
-      // console.log(cartItems);
-
-      return cartTotal;
-    } else {
-      return initialCartTotal;
-    }
-  };
-
-  // create array from count object and filter counts
-  // that match the selected button / product
-  // then iterate over the filtered items and return
-  // the item id and count value to be used by the cart component
-  // for rendering the individual item count per each cart item
-  let itemCount = Object.entries(count)
-    .filter(([id]) => activeButton[id])
-    .map(([id, value]) => ({
-      id,
-      count: value,
-    }));
-
-  // console.log("item count:", itemCount);
-
+    setOrderTotal({
+      count: totalCount,
+      price: totalPrice,
+    });
+  }
+  
+  // TODO: Remove outdated logic
   // reset active button state to false to remove item from cart
   // then subtract the current count from itself to reflect the correct
   // cart count
-  const removeItem = (id) => {
-    setActiveButton((prevProduct) => ({
-      ...prevProduct,
-      [id]: false,
-    }));
+  // const removeItem = (id) => {
+  //   setActiveButton((prevProduct) => ({
+  //     ...prevProduct,
+  //     [id]: false,
+  //   }));
 
-    setCount((prevCount) => ({
-      ...prevCount,
-      [id]: prevCount[id] - prevCount[id],
-    }));
-    console.log("item to removeItem:", id);
-  };
+  //   setCount((prevCount) => ({
+  //     ...prevCount,
+  //     [id]: prevCount[id] - prevCount[id],
+  //   }));
+  //   console.log("item to removeItem:", id);
+  // };
 
-  const clearItems = () => {
-    cartItems.forEach((item) => removeItem(item.id));
-  }
+  // const clearItems = () => {
+  //   cartItems.forEach((item) => removeItem(item.id));
+  // }
 
+  // TODO: Move / refactor modal related logic over to modal component if possible
   const handleOpen = () => {
     setOpenModal(true);
   };
@@ -163,10 +104,10 @@ export default function ProductPage() {
     setOpenModal(false);
   };
 
-  const resetCart = () => {
-    clearItems();
-    handleClose();
-  }
+  // const resetCart = () => {
+  //   clearItems();
+  //   handleClose();
+  // }
 
   // reset dialog state to close when ESC key is used to exit the modal
   const handleEscape = (event) => {
@@ -192,26 +133,16 @@ export default function ProductPage() {
         <div>
           <h1 className={styles["product-page__title"]}>Desserts</h1>
           <ProductShelf>
-            {products.map((product) => {
-              const {mobile, tablet, desktop} = product.image;
-              const {id, name, category, price} = product;
+            {productList.map((product) => {
               return (
-                <li key={id}>
+                <li key={product.id}>
                   <ProductCard
-                    mediumUrl={tablet}
-                    largeUrl={desktop}
-                    defaultUrl={mobile}
-                    id={id}
-                    title={name}
-                    category={category}
-                    price={price.toFixed(2)}
+                    item={product}
                   >
                     <AddToCartButton
-                      activeButton={activeButton[id] || false}
-                      count={count[id] || 0}
-                      initializeButton={() => initializeButton(id, product)}
-                      incrementCount={() => incrementCount(id)}
-                      decrementCount={() => decrementCount(id)}
+                      item={product}
+                      populateCart={populateCart}
+                      updateProducts={updateProducts}
                     />
                   </ProductCard>
                 </li>
@@ -220,16 +151,14 @@ export default function ProductPage() {
           </ProductShelf>
         </div>
         <Cart
-          cartTotal={getCartTotal()}
-          isEmptyCart={!isSelectedProduct}
-          cartItems={cartItems}
-          itemCount={itemCount}
-          handleRemove={removeItem}
+          items={cartContents}
+          total={orderTotal}
+          // TODO: refactor remove single item logic
+          // handleRemove={removeItem}
           handleModal={handleOpen}
-        >
-          <OrderTotal currentCost={totalCostArray} />
-        </Cart>
+        />
       </section>
+      {/* TODO: Refactor modal */}
       <Modal 
         isOpen={openModal} 
         handleEscape={handleEscape}
@@ -242,28 +171,18 @@ export default function ProductPage() {
         />
         <ModalBody>
           <ul>
-            {cartItems.map((item) => {
+            {cartContents.map((item) => {
               const {thumbnail} = item.image;
-              const countObject = itemCount.find(
-                  (selected) => selected.id == item.id
-                );
-              const currentCount = countObject ? countObject.count : "";
-              const itemTotal = item.price * currentCount;
-
-              totalCostArray.push(itemTotal);
-
               return (
-                <ProductListItem
-                  productName={item.name}
-                  productCount={currentCount}
-                  productPrice={item.price}
-                  productTotal={itemTotal}
-                  productThumb={thumbnail}
+                <OrderList
+                  key={item.id}
+                  item={item}
+                  hasThumbnail={thumbnail}
                 />
               );
             })}
           </ul>
-          <OrderTotal currentCost={totalCostArray} />
+          <OrderTotal total={orderTotal.price} />
         </ModalBody>
         <Button
           style={{
@@ -275,7 +194,7 @@ export default function ProductPage() {
             "--button-bg-hover-color": "var(--clr-red-100)",
             "--button-font-size": "var(--text-body)",
           }}
-          handleClick={resetCart}
+          // handleClick={resetCart}
         >
           Start New Order
         </Button>

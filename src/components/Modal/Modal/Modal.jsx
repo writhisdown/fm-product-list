@@ -1,5 +1,5 @@
 import {useEffect, useRef} from "react";
-import { useScrollLock } from "../../../hooks/useScrollLock";
+import { useScrollLock } from "../../../utilities/hooks/useScrollLock";
 import styles from "./styles.module.scss";
 
 export default function Modal({isOpen, handleEscape, handleOutsideClick, children}) {

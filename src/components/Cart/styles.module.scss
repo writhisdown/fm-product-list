@@ -1,12 +1,16 @@
+@import "../../utilities/styles/mixins/animations.scss";
+
 .cart {
   display: flex;
   flex-direction: column;
   height: -webkit-fit-content;
   height: -moz-fit-content;
-  height: fit-content;
+  // height: fit-content;
+  min-height: 286px;
   background: var(--clr-white);
   padding: var(--spacing-300);
   border-radius: var(--spacing-150);
+  transition: height 1s ease-in-out;
 }
 
 .cart__heading {
@@ -21,18 +25,22 @@
   }
 }
 
+.cart__placeholder {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-200);
+  padding-top: var(--spacing-300);
+  padding-bottom: var(--spacing-200);
+}
+
 .cart__placeholder-img {
-  margin-top: var(--spacing-300);
-  margin-bottom: var(--spacing-200);
-  
-  svg {
-    margin-inline: auto;
-  }
+    display: flex;
+    justify-content: center;
 }
 
 .cart__placeholder-message {
   text-align: center;
-  margin-bottom: var(--spacing-200);
+  // margin-bottom: var(--spacing-200);
   font: var(--text-body);
   color: var(--clr-rose-500);
 }
@@ -71,4 +79,8 @@
   align-items: center;
   -moz-column-gap: var(--spacing-100);
   column-gap: var(--spacing-100);
+}
+
+.fade-in {
+  @include fadeInAnimation();
 }

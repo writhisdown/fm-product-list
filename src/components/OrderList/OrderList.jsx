@@ -2,34 +2,34 @@ import Button from "../Buttons/Button/Button"
 import styles from "./styles.module.scss";
 import CloseIcon from "../Icons/CloseIcon";
 
-export default function ProductList({productName, productCount, productPrice, productTotal, productThumb = false, productAction, handleClick}) {
+export default function OrderList({item, hasThumbnail = false, actions, handleClick}) {
   return (
     <li className={styles["product-list-item"]}>
-      {productThumb && (
+      {hasThumbnail && (
         <div className={styles["product-list-item__thumbnail"]}>
           <img
-            src={productThumb}
-            alt={productName}
+            src={hasThumbnail}
+            alt={item.name}
           />
         </div>
       )}
       <div className={`${styles["product-list-item__details"]} ${styles["product-list-item__details--fill-space"]}`}>
-        <h3 className={styles["product-list-item__details-name"]}>{productName}</h3>
+        <h3 className={styles["product-list-item__details-name"]}>{item.name}</h3>
         <span className={styles["product-list-item__details-count"]}>
-          {productCount}x
+          {item.count}x
         </span>
         <span className={styles["product-list-item__details-price"]}>
-          @ ${productPrice.toFixed(2)}
+          @ ${item.price.toFixed(2)}
         </span>
-        {productAction && (
+        {actions && (
           <span className={`${styles["product-list-item__details-total"]} ${styles["product-list-item__details-total--inline"]}`}>
-            ${productTotal.toFixed(2)}
+            ${item.totalPrice ? item.totalPrice.toFixed(2) : 0}
           </span>
         )}
       </div>
-      {!productAction ? (
+      {!actions ? (
         <span className={styles["product-list-item__details-total"]}>
-          ${productTotal.toFixed(2)}
+          ${item.totalPrice ? item.totalPrice.toFixed(2) : 0}
         </span>
       ) : (
         <Button
